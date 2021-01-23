@@ -1,0 +1,37 @@
+Student : Blacioti Mihai - Sistem Energetic
+
+We start the programme by getting the input from the json file while also initialising the entities: Consumers, Distributors, Producers and MonthlyUpdates.
+
+We then create and populate lists of set entities. After that we create a variable that helds the requirements of the simulation.
+
+Regarding the simulation:
+	- We make the preliminary round ( round 0 ) where we find the best distributor (the one with the cheapest contract), 
+	give every consumer their monthly income and subscribe them to the best distributor. We then check if the consumer 
+	can or cannot pay the monthly fee. If he can, he does so (adding funds to the distributor). On the contrary, 
+	we give him a due payment. On both occasions, we decrement the number of months remaining on the contract. At the end, 
+	we pay the monthly taxes of the distributors and check if any of them has gone bankrupt.
+
+	- We run the simulation per se, with all of its rounds. A round consists of the following instructions: 
+	Firstly, we check if all distributors have gone bankrupt. If so, we end the simulation prematurely. Secondly, we make all 
+	the monthly updates, recalculate the price of each contract and keep a pointer to the most efficient deal of the round. We 
+	then get rid of the ended contracts, give each (non-bankrupt) consumer their monthly income and find a contract for those 
+	who have remained without electricity (and have no due payments). Afterwards, for each consumer that is still in the simulation 
+	we check if they have a due payment or not. According to the scenario we make the payments (or if the consumer has no money to 
+	pay and no due payments -> we give him a due payment / if he has a due payment, we declare bankruptcy for that consumer). The 
+	special case here is if the consumer has the last fee of a contract as a due payment and he is able to get a new contract (he 
+	has the funds to bay both distributors). If that is the case, we pay the old distributor the due payment, change the contract of 
+	the consumer and pay the new distributor his fee. Elsewise, we declare bankruptcy for the consumer. At the end of each round we 
+	reduce the budget of all (non-bankrupt) distributors while also checking if they go bankrupt this round. Finally, we end all the
+	contracts with bankrupt consumers.
+
+	- In addition, we check for producer changes and where they exist, we reevaluate the subscription for each producer/distributor, while
+	also notifying the latter. With that being set, we remove the distributors of the changed producer and the producers of all distributors 
+	who have had at least one producer changed. To be kept in mind that this process is done one distributor at a time and right after a
+	distributor has its producer list emptied out we find another plan according to his strategy (which is done by implementing a Strategy interface
+	with all posibilities). At the end of each month, we keep a list of each producer's subscribtions so that we can analyse each round's bonds.
+
+While we run the simulation's rounds, the lists are updated at each step so that at its end our entities are on par.
+What also needs to be mentioned is the fact that each separate entity has a factory instance and that the distributors and producers work by the 
+Observer/Observable standards so that it is easier to make the required changes.
+
+At the end, we ensure that the output has the corresponding fields from the entities in the simulation and we commence writing in the json output files.
