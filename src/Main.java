@@ -44,7 +44,14 @@ public final class Main {
         MonthlyUpdateList listOfUpdates = new MonthlyUpdateList();
         listOfUpdates.getInputMonthlyUpdates(input.getMonthlyUpdates());
 
-        // TODO
+
+        Rounds simulation = new Rounds(listOfConsumers, listOfDistributors, listOfUpdates,
+                listOfProducers, input.getNumberOfTurns());
+
+        simulation.makeFirstRound();
+
+        simulation.makeRounds();
+
 
         OutputDistributorList listOfOutputDistributors = new OutputDistributorList();
 
