@@ -53,16 +53,16 @@ public final class Main {
         simulation.makeRounds();
 
 
-        OutputDistributorList listOfOutputDistributors = new OutputDistributorList();
-
-        for (Distributor d : listOfDistributors.getList()) {
-            listOfOutputDistributors.addOutputDistributor(d);
-        }
-
         OutputConsumerList listOfOutputConsumers = new OutputConsumerList();
 
         for (Consumer c : listOfConsumers.getList()) {
             listOfOutputConsumers.addOutputConsumer(c);
+        }
+
+        OutputDistributorList listOfOutputDistributors = new OutputDistributorList();
+
+        for (Distributor d : listOfDistributors.getList()) {
+            listOfOutputDistributors.addOutputDistributor(d);
         }
 
         OutputProducerList listOfOutputProducers = new OutputProducerList();
